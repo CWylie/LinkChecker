@@ -10,3 +10,15 @@ c:\users\chris.wylie\documents\visual studio 2015\Projects\LinkChecker\LinkCheck
 c:\users\chris.wylie\documents\visual studio 2015\Projects\LinkChecker\LinkChecker\bin\Debug\HtmlAgilityPack.dll
 c:\users\chris.wylie\documents\visual studio 2015\Projects\LinkChecker\LinkChecker\bin\Debug\HtmlAgilityPack.pdb
 c:\users\chris.wylie\documents\visual studio 2015\Projects\LinkChecker\LinkChecker\bin\Debug\HtmlAgilityPack.xml
+C:\GitHub\LinkChecker\LinkChecker\LinkChecker\bin\Debug\LinkChecker.exe.config
+C:\GitHub\LinkChecker\LinkChecker\LinkChecker\obj\Debug\LinkChecker.exe
+C:\GitHub\LinkChecker\LinkChecker\LinkChecker\obj\Debug\LinkChecker.pdb
+C:\GitHub\LinkChecker\LinkChecker\LinkChecker\bin\Debug\LinkChecker.exe
+C:\GitHub\LinkChecker\LinkChecker\LinkChecker\bin\Debug\LinkChecker.pdb
+C:\GitHub\LinkChecker\LinkChecker\LinkChecker\bin\Debug\HtmlAgilityPack.dll
+C:\GitHub\LinkChecker\LinkChecker\LinkChecker\bin\Debug\HtmlAgilityPack.pdb
+C:\GitHub\LinkChecker\LinkChecker\LinkChecker\bin\Debug\HtmlAgilityPack.xml
+C:\GitHub\LinkChecker\LinkChecker\LinkChecker\obj\Debug\LinkChecker.csprojResolveAssemblyReference.cache
+C:\GitHub\LinkChecker\LinkChecker\LinkChecker\obj\Debug\LinkChecker.Form1.resources
+C:\GitHub\LinkChecker\LinkChecker\LinkChecker\obj\Debug\LinkChecker.Properties.Resources.resources
+C:\GitHub\LinkChecker\LinkChecker\LinkChecker\obj\Debug\LinkChecker.csproj.GenerateResource.Cache
