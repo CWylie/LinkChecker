@@ -18,6 +18,7 @@ namespace LinkChecker
 		private StringBuilder _sb = new StringBuilder();
 		private int _overallCounter;
 		private int _404Counter;
+		private int _successCounter;
 
 		public Form1()
 		{
@@ -39,7 +40,8 @@ namespace LinkChecker
 
 				_overallCounter = 0;
 				_404Counter = 0;
-				txtResults.Text = string.Empty;
+				_successCounter = 0;
+				txt404.Text = string.Empty;
 
 				button1.Enabled = false;
 
@@ -65,7 +67,7 @@ namespace LinkChecker
 				await CheckUrl(link);
 			}
 
-			txtResults.Text = _sb.ToString();
+			txt404.Text = _sb.ToString();
 			lblCounter.Text = "Processing Completed Successfully!!";
 			button1.Enabled = true;
 		}
@@ -77,6 +79,8 @@ namespace LinkChecker
 				var response = await client.GetAsync(link);
 
 				if (response.IsSuccessStatusCode)
+					_successCounter++;
+				else
 				{
 					_sb.Append(link + Environment.NewLine);
 					_404Counter++;
