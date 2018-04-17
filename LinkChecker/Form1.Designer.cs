@@ -33,6 +33,9 @@
 			this.button1 = new System.Windows.Forms.Button();
 			this.txtResults = new System.Windows.Forms.TextBox();
 			this.label2 = new System.Windows.Forms.Label();
+			this.lblCounter = new System.Windows.Forms.Label();
+			this.label3 = new System.Windows.Forms.Label();
+			this.lbl404Counter = new System.Windows.Forms.Label();
 			this.SuspendLayout();
 			// 
 			// txtSitemapUrl
@@ -41,7 +44,6 @@
 			this.txtSitemapUrl.Name = "txtSitemapUrl";
 			this.txtSitemapUrl.Size = new System.Drawing.Size(691, 20);
 			this.txtSitemapUrl.TabIndex = 0;
-			this.txtSitemapUrl.Text = "https://";
 			// 
 			// label1
 			// 
@@ -80,16 +82,49 @@
 			this.label2.TabIndex = 4;
 			this.label2.Text = "404 Responses";
 			// 
+			// lblCounter
+			// 
+			this.lblCounter.AutoSize = true;
+			this.lblCounter.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.lblCounter.ForeColor = System.Drawing.Color.Green;
+			this.lblCounter.Location = new System.Drawing.Point(349, 65);
+			this.lblCounter.Name = "lblCounter";
+			this.lblCounter.Size = new System.Drawing.Size(0, 20);
+			this.lblCounter.TabIndex = 5;
+			// 
+			// label3
+			// 
+			this.label3.AutoSize = true;
+			this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.label3.ForeColor = System.Drawing.Color.Green;
+			this.label3.Location = new System.Drawing.Point(648, 342);
+			this.label3.Name = "label3";
+			this.label3.Size = new System.Drawing.Size(0, 20);
+			this.label3.TabIndex = 6;
+			// 
+			// lbl404Counter
+			// 
+			this.lbl404Counter.AutoSize = true;
+			this.lbl404Counter.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.lbl404Counter.ForeColor = System.Drawing.Color.Red;
+			this.lbl404Counter.Location = new System.Drawing.Point(349, 112);
+			this.lbl404Counter.Name = "lbl404Counter";
+			this.lbl404Counter.Size = new System.Drawing.Size(0, 20);
+			this.lbl404Counter.TabIndex = 7;
+			// 
 			// Form1
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.ClientSize = new System.Drawing.Size(1296, 704);
+			this.Controls.Add(this.lbl404Counter);
+			this.Controls.Add(this.label3);
+			this.Controls.Add(this.lblCounter);
 			this.Controls.Add(this.label2);
-			this.Controls.Add(this.txtResults);
 			this.Controls.Add(this.button1);
 			this.Controls.Add(this.label1);
 			this.Controls.Add(this.txtSitemapUrl);
+			this.Controls.Add(this.txtResults);
 			this.Name = "Form1";
 			this.Text = "Sitemap 404 Checker";
 			this.ResumeLayout(false);
@@ -104,6 +139,9 @@
 		private System.Windows.Forms.Button button1;
 		private System.Windows.Forms.TextBox txtResults;
 		private System.Windows.Forms.Label label2;
+		private System.Windows.Forms.Label lblCounter;
+		private System.Windows.Forms.Label label3;
+		private System.Windows.Forms.Label lbl404Counter;
 	}
 }
 
