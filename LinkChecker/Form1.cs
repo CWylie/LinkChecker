@@ -19,6 +19,7 @@ namespace LinkChecker
 		private int _overallCounter;
 		private int _404Counter;
 		private int _successCounter;
+		private int _currentCounter;
 
 		public Form1()
 		{
@@ -41,8 +42,12 @@ namespace LinkChecker
 				_overallCounter = 0;
 				_404Counter = 0;
 				_successCounter = 0;
+				_currentCounter = 0;
 				txt404.Text = string.Empty;
-
+				lbl404Counter.Text = string.Empty;
+				lblCounter.Text = string.Empty;
+				lblCurrentCounter.Text = string.Empty;
+				lblTotalCounter.Text = string.Empty;
 				button1.Enabled = false;
 
 				foreach(var link in links)
@@ -55,6 +60,10 @@ namespace LinkChecker
 					lblCounter.Text = "Processing 1 link...";
 				else
 					lblCounter.Text = "Processing " + _overallCounter.ToString() + " links...";
+
+				_currentCounter = _overallCounter;
+				lblCurrentCounter.Text = _currentCounter.ToString();
+				lblTotalCounter.Text = "/ " + _overallCounter.ToString();
 
 				CheckUrls(linkList);
 			}
@@ -76,16 +85,29 @@ namespace LinkChecker
 		{
 			using (var client = new HttpClient())
 			{
-				var response = await client.GetAsync(link);
+				var response = new HttpResponseMessage();
 
-				if (response.IsSuccessStatusCode)
+				try
+				{
+					response = await client.GetAsync(link);
+				}
+				catch(HttpRequestException e)
+				{
+					link = link + " (Uncaught Error)";
+					response = null;
+				}
+
+				_currentCounter--;
+				lblCurrentCounter.Text = _currentCounter.ToString();
+
+				if (response != null && response.IsSuccessStatusCode)
 					_successCounter++;
 				else
 				{
-					_sb.Append(link + Environment.NewLine);
+					_sb.Append(link + Environment.NewLine + Environment.NewLine);
 					_404Counter++;
 
-					if(_404Counter == 1)
+					if (_404Counter == 1)
 						lbl404Counter.Text = "1 file with 404 error found";
 					else
 						lbl404Counter.Text = _404Counter.ToString() + " files with 404 errors found";
