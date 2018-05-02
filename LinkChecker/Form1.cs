@@ -1,15 +1,13 @@
-﻿using System;
+﻿using HtmlAgilityPack;
+using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Net;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using HtmlAgilityPack;
+using System.Xml;
+using System.Configuration;
+using System.ComponentModel;
 
 namespace LinkChecker
 {
@@ -24,18 +22,34 @@ namespace LinkChecker
 		public Form1()
 		{
 			InitializeComponent();
+
+			InitializeComboBox();
+		}
+
+		BindingList<site> listOfSites;
+		private void InitializeComboBox()
+		{
+			List<site> sites = ConfigurationManager.GetSection("siteList") as List<site>;
+			sites.Sort((x, y) => string.Compare(x.displayName, y.displayName));
+			sites.Insert(0, new site { displayName="- Choose a Site -", url="" });
+			listOfSites = new BindingList<site>(sites);
+			cboSites.DataSource = listOfSites;
+			cboSites.ValueMember = "url";
+			cboSites.DisplayMember = "displayName";
 		}
 
 		private void button1_Click(object sender, EventArgs e)
 		{
-			if (txtSitemapUrl.TextLength == 0)
+			if (txtSitemapUrl.TextLength == 0 && string.IsNullOrEmpty(cboSites.SelectedValue.ToString()))
 			{
-				MessageBox.Show("Please provide a valid sitemap URL.");
+
+				MessageBox.Show("Please choose a site from the drop-down or provide a valid sitemap URL.");
 			}
 			else
 			{
+				var siteUrl = txtSitemapUrl.TextLength > 0 ? txtSitemapUrl.Text : cboSites.SelectedValue.ToString();
 				var web = new HtmlWeb();
-				var htmlDoc = web.Load(txtSitemapUrl.Text);
+				var htmlDoc = web.Load(siteUrl);
 				var links = htmlDoc.DocumentNode.SelectNodes("//div[contains(@id,'cphMain_dataDiv')]//a");
 				var linkList = new List<string>();
 
@@ -45,7 +59,6 @@ namespace LinkChecker
 				_currentCounter = 0;
 				txt404.Text = string.Empty;
 				lbl404Counter.Text = string.Empty;
-				lblCounter.Text = string.Empty;
 				lblCurrentCounter.Text = string.Empty;
 				lblTotalCounter.Text = string.Empty;
 				button1.Enabled = false;
@@ -55,11 +68,6 @@ namespace LinkChecker
 					_overallCounter++;
 					linkList.Add(link.Attributes["href"].Value);
 				}
-
-				if(_overallCounter==1)
-					lblCounter.Text = "Processing 1 link...";
-				else
-					lblCounter.Text = "Processing " + _overallCounter.ToString() + " links...";
 
 				_currentCounter = _overallCounter;
 				lblCurrentCounter.Text = _currentCounter.ToString();
@@ -77,7 +85,6 @@ namespace LinkChecker
 			}
 
 			txt404.Text = _sb.ToString();
-			lblCounter.Text = "Processing Completed Successfully!!";
 			button1.Enabled = true;
 		}
 
@@ -114,5 +121,57 @@ namespace LinkChecker
 				}
 			}
 		}
+
+		private void cboSites_SelectedIndexChanged(object sender, EventArgs e)
+		{
+			if(!string.IsNullOrEmpty(cboSites.SelectedValue.ToString()))
+				txtSitemapUrl.Text = string.Empty;
+		}
+	}
+
+	public class SiteListSection : IConfigurationSectionHandler
+	{
+		public object Create(object parent, object configContext, XmlNode section)
+		{
+			List<site> myConfigObject = new List<site>();
+
+			foreach(XmlNode childNode in section.ChildNodes)
+			{
+				var site = new site();
+
+				foreach (XmlAttribute attrib in childNode.Attributes)
+				{
+					switch (attrib.Name)
+					{
+						case "instance":
+							site.instance = attrib.Value;
+							break;
+						case "url":
+							site.url = attrib.Value;
+							break;
+						case "displayName":
+							site.displayName = attrib.Value;
+							break;
+						case "active":
+							site.active = attrib.Value.ToLower().Equals("true");
+							break;
+						default:
+							break;
+					}
+				}
+
+				if(site.active)
+					myConfigObject.Add(site);
+			}
+			return myConfigObject;
+		}
+	}
+
+	public class site
+	{
+		public string instance { get; set; }
+		public string url { get; set; }
+		public string displayName { get; set; }
+		public bool active { get; set; }
 	}
 }
